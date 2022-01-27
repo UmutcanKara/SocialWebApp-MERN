@@ -1,0 +1,43 @@
+{
+  "name": "social-media-network",
+  "version": "1.0.0",
+  "description": "Social Media Project by UmutcanKara & SupaSibs",
+  "main": "server.js",
+  "dependencies": {
+    "@redux-devtools/extension": "^3.1.0",
+    "axios": "^0.25.0",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^14.3.2",
+    "express": "^4.17.2",
+    "express-validator": "^6.14.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.5",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.2.1",
+    "redux": "^4.1.2",
+    "redux-thunk": "^2.4.1",
+    "request": "^2.88.2",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0",
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run start\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SupaSibs/social-media-network.git"
+  },
+  "author": "SupaSibs & UmutcanKara",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SupaSibs/social-media-network/issues"
+  },
+  "homepage": "https://github.com/SupaSibs/social-media-network#readme"
+}
