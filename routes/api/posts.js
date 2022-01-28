@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
+const { check, validationResult } = require("express-validator");
 
 //Models
-const User = require("../../models/User");
+// const User = require("../../models/User");
 const Posts = require("../../models/Posts");
+// const Profile = require("../../models/Profile");
 
 // @route     POST api/posts/
 // @desc      Add a Post
@@ -20,6 +21,10 @@ router.post(
     ],
   ],
   async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     const { location, toStream, desc } = req.body;
     const newPost = {};
     newPost.user = req.user.id;
@@ -39,11 +44,20 @@ router.post(
   }
 );
 
-// @route     GET api/posts/
-// @desc      Get friends posts
+// @route     GET api/posts/following
+// @desc      Get following users posts
 // @access    Private (auth)
 
-// ToDo
+// router.get("/following",auth,async(req,res)=>{
+//     try {
+//       const currentProfile = await Profile.findOne({user: req.user.id})
+//       const followerArr  = currentProfile.following
+//       const followerPostArr = followerArr
+//     } catch (err) {
+//       console.error(err)
+//       res.status(500).send('Server Error')
+//     }
+// });
 
 // @route     GET api/posts/all
 // @desc      Get all posts

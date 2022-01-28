@@ -12,7 +12,7 @@ const User = require("../../models/User");
 router.post(
   "/",
   [
-    check("name", "Name is required").notEmpty(),
+    check("userName", "Name is required").notEmpty(),
     check("email", "Please include a valid email").isEmail(),
     check(
       "password",
@@ -25,7 +25,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password } = req.body;
+    const { userName, email, password } = req.body;
 
     // See if the user exists
     try {
@@ -37,7 +37,7 @@ router.post(
       }
       // Create new User instance
       user = new User({
-        name,
+        userName,
         email,
         password,
       });
