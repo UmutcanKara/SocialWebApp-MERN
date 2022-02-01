@@ -4,9 +4,8 @@ const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
 
 //Models
-// const User = require("../../models/User");
 const Posts = require("../../models/Posts");
-// const Profile = require("../../models/Profile");
+const Profile = require("../../models/Profile");
 
 // @route     POST api/posts/
 // @desc      Add a Post
@@ -48,16 +47,23 @@ router.post(
 // @desc      Get following users posts
 // @access    Private (auth)
 
-// router.get("/following",auth,async(req,res)=>{
-//     try {
-//       const currentProfile = await Profile.findOne({user: req.user.id})
-//       const followerArr  = currentProfile.following
-//       const followerPostArr = followerArr
-//     } catch (err) {
-//       console.error(err)
-//       res.status(500).send('Server Error')
-//     }
-// });
+router.get("/following", auth, async (req, res) => {
+  try {
+    const currentProfile = await Profile.findOne({ user: req.user.id });
+    const followingArr = currentProfile.following;
+    const allFriendPosts = [];
+    for (let i = 0; i < followingArr.length; i++) {
+      allFriendPosts = [
+        ...allFriendPosts,
+        Posts.find({ user: followingArr[i] }),
+      ];
+    }
+    res.json(allFriendPosts);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
 
 // @route     GET api/posts/all
 // @desc      Get all posts
@@ -99,7 +105,7 @@ router.get("/:id", auth, async (req, res) => {
 
 router.delete("/:id", auth, async (req, res) => {
   try {
-    const post = await Posts.findOne(req.params.id);
+    const post = await Posts.findOne({ id: req.params.id });
     if (!post) {
       return res.status(404).json({ msg: "Post Not Found" });
     }
@@ -139,7 +145,7 @@ router.put("/like/:id", auth, async (req, res) => {
       return res.status(400).json({ msg: "Post Already Liked" });
     }
 
-    post.likes.unshitf({ user: req.user.id });
+    post.likes.unshift({ user: req.user.id });
     await post.save();
   } catch (err) {
     console.error(err);

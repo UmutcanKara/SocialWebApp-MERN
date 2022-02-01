@@ -15,6 +15,7 @@ const ProfileSchema = new mongoose.Schema({
   photo: {
     type: Buffer,
     contentType: String,
+    default: " https://i.stack.imgur.com/34AD2.jpg",
   },
   following: [
     {

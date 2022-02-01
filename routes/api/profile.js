@@ -20,15 +20,14 @@ router.post(
     if (!error.isEmpty()) {
       return res.status(400).json({ errors: error.array() });
     }
-    const { about, photo, following, follower, created, notification } =
-      req.body;
+    const { name, about, photo, following, follower, created } = req.body;
     const newProfile = {};
     newProfile.user = req.user.id;
+    newProfile.name = name;
     if (about) newProfile.about = about;
     if (photo) newProfile.photo = photo;
     if (following) newProfile.following = following;
     if (follower) newProfile.follower = follower;
-    if (notification) newProfile.notification = notification;
     created ? (newProfile.created = created) : Date.now();
     newProfile.updated = Date.now();
 
@@ -80,9 +79,9 @@ router.get("/me", auth, async (req, res) => {
 
 // @route     GET api/profile/:id
 // @desc      Get profile by id
-// @access    Private (auth)
+// @access    Public
 
-router.get("/:user_id", auth, async (req, res) => {
+router.get("/:user_id", async (req, res) => {
   try {
     const profile = await Profile.findOne({
       user: req.params.user_id,
