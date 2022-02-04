@@ -1,3 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+nav{
+    padding: 1.5rem;
+    margin-left: 0;
+    background-image: linear-gradient(to right,#dcf4ce , #5ec57e);
+}
+h1,h2,h3,h4,h5,h6{
+    margin : 1rem ,0
+}

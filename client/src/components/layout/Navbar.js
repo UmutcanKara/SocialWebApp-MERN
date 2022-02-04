@@ -7,18 +7,19 @@ const Navbar = () => {
 
   // If not Logged in
   return (
-    <nav className="navbar">
-      <h1>
-        <Link to="/">Social Website</Link>
-      </h1>
-      <ul>
-        <li>
-          <Link to="/register">Register</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-      </ul>
+    <nav className=" row ">
+      <div className="logo col ">
+        <h3>Logo</h3>
+        <h3>SocialWebApp</h3>
+      </div>
+      <div className="auth col">
+        <h3 className=" col">
+          <Link to="login">Login</Link>
+        </h3>
+        <h3 className="col">
+          <Link to="register">Register</Link>
+        </h3>
+      </div>
     </nav>
   );
 };
